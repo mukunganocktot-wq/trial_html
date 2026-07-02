@@ -238,11 +238,11 @@
         <div class="heart">💗</div>
         <h1>For my actor, with love</h1>
         <p>
-            I made this page because every time I think of you, my heart smiles. Open it whenever you want a soft little moment.
+            I made this page because every time I think of you, Open it whenever you want a soft little moment.
         </p>
 
         <div class="button-row">
-            <button id="yesBtn">Yes, I’m smiling 💕</button>
+            <button id="yesBtn">Yes,💕</button>
             <button id="noBtn">No</button>
         </div>
         <p id="smallText">Hint: the answer is already in your heart.</p>
@@ -283,13 +283,21 @@
             const audio = document.getElementById('loveSong');
             if (!audio) return;
 
-            audio.currentTime = 0;
-            const playPromise = audio.play();
+            try {
+                audio.load();
+                audio.currentTime = 0;
+                const playPromise = audio.play();
 
-            if (playPromise && typeof playPromise.then === 'function') {
-                playPromise.catch(() => {
-                    console.log('Audio playback was blocked by the browser.');
-                });
+                if (playPromise && typeof playPromise.then === 'function') {
+                    playPromise.catch(() => {
+                        audio.muted = false;
+                        audio.play().catch(() => {
+                            console.log('Audio playback was blocked by the browser.');
+                        });
+                    });
+                }
+            } catch (error) {
+                console.log('Audio playback failed:', error);
             }
         }
 
