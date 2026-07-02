@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Risper 💖</title>
     <style>
+        :root {
+            --pink: #ff4f9a;
+            --pink-dark: #d63b79;
+            --pink-soft: #ffe8f2;
+            --text: #4d3550;
+            --muted: #8d7088;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
@@ -12,120 +27,196 @@
             justify-content: center;
             align-items: center;
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle at top left, #ffd6e8 0%, #fff0f6 40%, #ffe8fb 100%);
-            color: #333;
+            background: linear-gradient(135deg, #ffe8f7 0%, #fff9fc 48%, #ffdfe9 100%);
+            color: var(--text);
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
         }
 
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(25px);
+            opacity: 0.35;
+            z-index: 0;
+        }
+
+        body::before {
+            width: 180px;
+            height: 180px;
+            background: #ffb5d1;
+            top: -40px;
+            left: -20px;
+        }
+
+        body::after {
+            width: 220px;
+            height: 220px;
+            background: #ffc6e4;
+            bottom: -60px;
+            right: -30px;
+        }
+
+        .background-hearts {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 1.4rem;
+            opacity: 0.7;
+            animation: drift 8s linear infinite;
+        }
+
+        .heart-float.one { left: 8%; top: 12%; animation-delay: 0s; }
+        .heart-float.two { right: 10%; top: 18%; animation-delay: 1.5s; }
+        .heart-float.three { left: 15%; bottom: 12%; animation-delay: 2.5s; }
+        .heart-float.four { right: 16%; bottom: 18%; animation-delay: 3.5s; }
+
         .card {
-            width: min(90vw, 420px);
-            padding: 36px 30px;
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.96);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+            width: min(92vw, 440px);
+            padding: 32px 26px 28px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 79, 154, 0.22);
+            box-shadow: 0 18px 45px rgba(190, 72, 120, 0.16), inset 0 1px 0 rgba(255,255,255,0.9);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .card::before {
+            content: "♥";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(4rem, 16vw, 6.2rem);
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            color: rgba(233, 30, 99, 0.08);
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 10px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ffd8e8, #ffeef5);
+            color: var(--pink-dark);
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            z-index: 1;
             position: relative;
         }
 
         .heart {
-            font-size: 52px;
-            animation: beat 1.1s infinite ease-in-out;
+            font-size: 3rem;
+            animation: beat 1s infinite ease-in-out;
+            margin-bottom: 8px;
+            z-index: 1;
+            position: relative;
         }
 
         h1 {
-            margin: 20px 0 10px;
-            color: #e91e63;
-            font-size: 2rem;
-        }
-
-        h2 {
-            margin: 22px 0 0;
-            font-size: 1.2rem;
-            color: #555;
+            margin: 0 0 10px;
+            color: var(--pink-dark);
+            font-size: 1.9rem;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
         }
 
         p {
-            color: #5a4a5f;
-            line-height: 1.6;
-            margin: 0 0 18px;
+            color: var(--text);
+            line-height: 1.65;
+            margin: 0 0 16px;
             font-size: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .button-row {
             margin-top: 18px;
             position: relative;
             min-height: 64px;
-        }
-
-        .hosted-link {
-            display: inline-block;
-            margin-top: 14px;
-            color: #e91e63;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .hosted-link:hover {
-            text-decoration: underline;
-        }
-
-        .share-btn {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 10px 16px;
-            border-radius: 999px;
-            background: #25D366;
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
-        }
-
-        .share-btn:hover {
-            background: #1ebe5b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
         }
 
         button {
             border: none;
             border-radius: 999px;
-            padding: 14px 28px;
+            padding: 12px 22px;
             font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
         }
 
         #yesBtn {
-            background: #ff4f9a;
+            background: linear-gradient(135deg, #ff5f96, #ff3d7d);
             color: #fff;
         }
 
         #yesBtn:hover {
-            transform: translateY(-2px);
-            background: #ff2f86;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 14px 26px rgba(255, 77, 128, 0.24);
         }
 
         #noBtn {
-            background: #f7f7f7;
-            color: #6b6b6b;
+            background: #fff;
+            color: #8a6c7d;
             position: absolute;
             top: 0;
             right: 0;
         }
 
         #smallText {
-            margin: 18px 0 0;
-            color: #8a7c91;
-            font-size: 0.92rem;
+            margin: 16px 0 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+            min-height: 1.2em;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes beat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.15); }
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+            50% { transform: translateY(-10px) rotate(8deg); opacity: 0.7; }
+            100% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 420px) {
             .card {
-                padding: 28px 20px;
+                padding: 28px 20px 24px;
             }
 
             #noBtn {
@@ -135,34 +226,42 @@
     </style>
 </head>
 <body>
+    <div class="background-hearts" aria-hidden="true">
+        <span class="heart-float one">💖</span>
+        <span class="heart-float two">💗</span>
+        <span class="heart-float three">💞</span>
+        <span class="heart-float four">💕</span>
+    </div>
+
     <div class="card">
-        <div class="heart">💜</div>
-        <h1>For You</h1>
+        <div class="badge">A little surprise for you</div>
+        <div class="heart">💗</div>
+        <h1>For my actor, with love</h1>
         <p>
-            I made this page because you always brighten my day. Open it whenever you want a little smile.
+            I made this page because every time I think of you, my heart smiles. Open it whenever you want a soft little moment.
         </p>
-        <a class="hosted-link" href="https://nelso.github.io/Git_Hub/" target="_blank" rel="noopener noreferrer">Open this page in your browser</a>
-        <br>
-        <a class="share-btn" href="https://wa.me/?text=Hi%20%F0%9F%91%8B%20I%20made%20something%20for%20you:%20https://nelso.github.io/Git_Hub/" target="_blank" rel="noopener noreferrer">Share with her on WhatsApp</a>
-        <h2>Will you say yes?</h2>
+
         <div class="button-row">
-            <button id="yesBtn">Yes 💕</button>
+            <button id="yesBtn">Yes, I’m smiling 💕</button>
             <button id="noBtn">No</button>
         </div>
-        <p id="smallText">Hint: the answer is already written in the heart.</p>
+        <p id="smallText">Hint: the answer is already in your heart.</p>
     </div>
+    <audio id="loveSong" src="Mbosso.mp3.mp3" preload="auto"></audio>
 
     <script>
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const smallText = document.getElementById('smallText');
+        const card = document.querySelector('.card');
 
         let noCount = 0;
 
         function moveNoButton() {
             noCount += 1;
-            const maxX = window.innerWidth - noBtn.offsetWidth - 24;
-            const maxY = window.innerHeight - noBtn.offsetHeight - 24;
+            const cardRect = card.getBoundingClientRect();
+            const maxX = Math.max(cardRect.width - noBtn.offsetWidth - 24, 0);
+            const maxY = Math.max(cardRect.height - noBtn.offsetHeight - 24, 0);
             const randomX = Math.floor(Math.random() * maxX);
             const randomY = Math.floor(Math.random() * maxY);
 
@@ -170,22 +269,77 @@
             noBtn.style.top = `${randomY}px`;
 
             if (noCount === 1) {
-                smallText.textContent = 'Mbona uakimbilia No?';
+                smallText.textContent = 'Why are you running from yes?';
             } else if (noCount === 2) {
-                smallText.textContent = 'No inakimbia, yes iko tayari.';
+                smallText.textContent = 'No keeps running, but yes is waiting.';
             } else if (noCount === 3) {
-                smallText.textContent = 'Acha kucheza, finya yes.';
+                smallText.textContent = 'Stop playing, tap yes.';
             } else {
-                smallText.textContent = 'Yes tu, mpenzi.';
+                smallText.textContent = 'Just say yes, my love.';
             }
+        }
+
+        function playLoveSong() {
+            const audio = document.getElementById('loveSong');
+            if (!audio) return;
+
+            audio.currentTime = 0;
+            const playPromise = audio.play();
+
+            if (playPromise && typeof playPromise.then === 'function') {
+                playPromise.catch(() => {
+                    console.log('Audio playback was blocked by the browser.');
+                });
+            }
+        }
+
+        function showSweetMessage() {
+            card.innerHTML = `
+                <div style="animation: fadeIn 0.6s ease; padding: 8px 4px;">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">💖💌✨🥰💞</div>
+                    <pre style="margin: 8px 0 14px; font-size: 0.36rem; line-height: 0.95; white-space: pre; overflow-x: auto; color: #ff4f9a; font-family: Consolas, monospace;">
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⠿⠿⠿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣶⣿⣿⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⡟⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⣾⣿⣶⣶⣤⡀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠘⢿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀
+⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠈⠻⣿⣿⣿⣿⣆⠀⠀⠀⢀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⣀⣤⣶⣶⣌⠻⣿⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀
+⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⠁⣰⣿⣿⣿⣿⣿⣦⣙⢿⣿⣿⣿⠄⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣦⣹⣟⣫⣼⣿⣿⣶⣿⣿⣿⣿⣿⣿⣯⡉⠉⠉⠁⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠐⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⡆⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⡇⠀⢻⣿⣿⣿⣿⣿⡇⠀⠀⠈⠉⠉⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⠉⠀⠀⠀⠀⠀⠀⠀
+⠀⣠⣴⣶⣶⣶⣶⣶⣶⣾⣿⣿⣿⣿⣿⡇⠀⠸⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠹⢿⣿⣿⢿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀
+⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢰⣶⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣧⣄⣐⣀⣀⣀⣀⣀⡀
+⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⠀⠀⠉⠉⠙⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠁⠛⠛⠛⠛⠛⠛⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁</pre>
+                    <h1 style="margin: 8px 0 10px; color: #e91e63;">You made my day 💕</h1>
+                    <p style="font-size: 1rem; color: #6a4b64; margin-bottom: 10px;">
+                        Hey beautiful, thank you for being you. This little page is just a tiny piece of the smile you bring into your heart.
+                    </p>
+                    <p style="font-size: 0.95rem; color: #8c6882; margin-bottom: 0;">
+                        I hope this makes you smile too. 💞
+                    </p>
+                </div>
+            `;
+
+            playLoveSong();
         }
 
         noBtn.addEventListener('mouseover', moveNoButton);
         noBtn.addEventListener('touchstart', moveNoButton, { passive: true });
 
-        yesBtn.addEventListener('click', () => {
-            window.open('https://nelso.github.io/Git_Hub/', '_blank', 'noopener,noreferrer');
-        });
+        yesBtn.addEventListener('click', showSweetMessage);
     </script>
 </body>
 </html>
